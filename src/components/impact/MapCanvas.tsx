@@ -63,8 +63,8 @@ export function MapCanvas() {
                 if (next) setSelected(next.id);
               }}
               className={cn(
-                "border px-3 py-2 text-[0.72rem] tracking-[0.14em] uppercase",
-                filter === item.id ? "border-forest bg-forest text-ivory" : "border-charcoal/20 bg-white text-charcoal",
+                "rounded-full border px-3 py-2 text-[0.72rem] tracking-[0.14em] uppercase",
+                filter === item.id ? "border-forest bg-forest text-ivory" : "border-charcoal/15 bg-ivory text-charcoal",
               )}
               aria-pressed={filter === item.id}
             >
@@ -72,7 +72,7 @@ export function MapCanvas() {
             </button>
           ))}
         </div>
-        <div className="h-[520px] overflow-hidden border border-charcoal/10">
+        <div className="h-[520px] overflow-hidden rounded-[1.4rem] border border-charcoal/10">
           <MapContainer
             center={[22.2, 84.5]}
             zoom={5}
@@ -106,7 +106,7 @@ export function MapCanvas() {
         </p>
       </div>
       {current ? (
-        <aside className="flex flex-col justify-between border border-charcoal/10 bg-white p-6">
+        <aside className="flex flex-col justify-between rounded-[1.4rem] bg-ivory p-6">
           <div>
             <p className="eyebrow text-forest/60">{current.project}</p>
             <h3 className="display mt-3 text-4xl text-forest">{current.name}</h3>

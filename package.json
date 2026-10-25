@@ -2,9 +2,13 @@
   "name": "meensou-india",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:hostinger": "HOSTINGER_EXPORT=1 next build && cp hostinger/htaccess out/.htaccess",
     "start": "next start",
     "lint": "next lint"
   },

@@ -20,12 +20,12 @@ export function StoveChart() {
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={stoveData} layout="vertical" margin={{ left: 16, right: 16, top: 8, bottom: 0 }}>
           <XAxis type="number" hide />
-          <YAxis type="category" dataKey="name" width={90} stroke="#f6f4ec" tick={{ fill: "#f6f4ec", fontSize: 12 }} axisLine={false} tickLine={false} />
+          <YAxis type="category" dataKey="name" width={90} stroke="#202c2b" tick={{ fill: "#202c2b", fontSize: 12 }} axisLine={false} tickLine={false} />
           <Tooltip
-            cursor={{ fill: "rgba(255,255,255,0.04)" }}
-            contentStyle={{ background: "#0b2820", border: "1px solid rgba(246,244,236,0.2)", color: "#f6f4ec" }}
+            cursor={{ fill: "rgba(18,61,47,0.06)" }}
+            contentStyle={{ background: "#123d2f", border: "none", borderRadius: 12, color: "#f6f4ec" }}
           />
-          <Bar dataKey="stoves" fill="#d8a95d" barSize={18} />
+          <Bar dataKey="stoves" fill="#123d2f" radius={8} barSize={18} />
         </BarChart>
       </ResponsiveContainer>
     </div>
