@@ -2,32 +2,38 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useState } from "react";
 
 export function Header() {
   const pathname = usePathname();
-  const reduce = useReducedMotion();
   const onPage = pathname === "/" || pathname === "/sustainability";
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
-      <motion.div
-        initial={reduce ? false : { opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto mx-auto flex h-14 w-full max-w-[1440px] items-center justify-between rounded-full border border-charcoal/10 bg-white/75 px-3 shadow-[0_10px_40px_rgba(18,61,47,0.08)] backdrop-blur-xl md:px-4"
-      >
-        <a href={onPage ? "#content" : "/"} className="flex items-center gap-3 pl-1" aria-label="Meensou India">
-          <Image src="/media/logo.png" alt="" width={32} height={32} className="size-8 rounded-full bg-ivory object-cover" priority />
-          <span className="font-display text-sm tracking-[0.22em] text-forest">MEENSOU</span>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,color] duration-300 ${
+        scrolled ? "bg-white text-charcoal shadow-[0_1px_0_rgba(32,44,43,0.08)]" : "bg-transparent text-ivory"
+      }`}
+    >
+      <div className="shell flex h-16 items-center justify-between">
+        <a href={onPage ? "#content" : "/"} className="flex items-center gap-3" aria-label="Meensou India">
+          <Image src="/media/logo.png" alt="" width={28} height={28} className="size-7 bg-ivory object-cover" priority />
+          <span className="font-display text-[0.78rem] font-semibold tracking-[0.28em]">MEENSOU</span>
         </a>
         <a
           href={onPage ? "#contact" : "/#contact"}
-          className="rounded-full bg-forest px-4 py-2 text-[0.68rem] font-semibold tracking-[0.16em] text-ivory uppercase"
+          className={`border-b pb-0.5 text-[0.68rem] font-semibold tracking-[0.18em] uppercase ${scrolled ? "border-charcoal" : "border-gold"}`}
         >
           Connect
         </a>
-      </motion.div>
+      </div>
     </header>
   );
 }

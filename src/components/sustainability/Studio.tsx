@@ -12,7 +12,9 @@ import { ParallaxImage } from "@/components/shared/ParallaxImage";
 import { ImpactMap } from "@/components/home/ImpactMap";
 import { Technology } from "@/components/home/Technology";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const lines = ["Our planet.", "Our people.", "Our responsibility."];
 
 const metrics = [
   {
@@ -46,23 +48,29 @@ const pillars = [
   {
     id: "climate",
     index: "01",
-    title: "Environmental responsibility",
+    title: "Environmental",
     text: "Native mangrove restoration in the Indian Sundarbans, nursery stock for replanting, and a cookstove programme that lowers the wood a household burns.",
     href: "#projects",
+    image: "/media/south24.jpeg",
+    alt: "Mangrove forest along a Sundarbans channel",
   },
   {
     id: "community",
     index: "02",
-    title: "Social responsibility",
+    title: "Social",
     text: "Rural and tribal households, cleaner kitchens, training on the tidal flat, and consultations held in the villages the projects affect.",
     href: "#communities",
+    image: "/media/mangrove-training.jpg",
+    alt: "A field team teaching planting on a tidal flat",
   },
   {
     id: "governance",
     index: "03",
-    title: "Governance and transparency",
+    title: "Governance",
     text: "Satellite checks, field forms, GPS and return visits. Figures on this page stay labeled as reported, targeted, or not yet published.",
     href: "#reports",
+    image: "/media/field-visit.jpeg",
+    alt: "A monitoring visit in a young mangrove plantation",
   },
 ];
 
@@ -114,10 +122,10 @@ function Rise({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.7, delay, ease }}
+      transition={{ duration: 0.65, delay, ease }}
     >
       {children}
     </motion.div>
@@ -128,442 +136,389 @@ export function Studio() {
   const reduce = useReducedMotion();
 
   return (
-    <div className="sustainability-page">
-      <section className="relative pt-28 pb-24 md:pt-32 md:pb-32">
-        <div className="shell">
-          <motion.div
-            initial={reduce ? false : "hidden"}
-            animate="show"
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
-            }}
+    <div className="sustainability-page bg-[#efece3] text-charcoal">
+      <section className="relative min-h-[100svh] overflow-hidden bg-charcoal text-ivory">
+        <motion.div
+          className="absolute inset-0"
+          initial={reduce ? false : { scale: 1.08 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.7, ease }}
+        >
+          <ParallaxImage
+            src="/media/field-community.jpg"
+            alt="Young mangrove saplings in tidal channels, with forest beyond, in the Indian Sundarbans"
+            priority
+            sizes="100vw"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/75 to-charcoal/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/25 to-charcoal/35" />
+        <div className="page-pad relative flex min-h-[100svh] flex-col justify-end pt-24 pb-6">
+          <motion.p
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-[0.72rem] font-semibold tracking-[0.28em] text-gold uppercase"
           >
-            <motion.p
-              variants={reduce ? undefined : { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}
-              className="eyebrow text-forest/60"
-            >
-              Sustainability · Meensou India
-            </motion.p>
-            <motion.h1
-              variants={reduce ? undefined : { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.75, ease } } }}
-              className="mt-5 font-serif text-[clamp(2.8rem,5.6vw,5.6rem)] leading-[0.92] text-balance text-forest"
-            >
-              Our planet.
-              <span className="block italic">Our people.</span>
-              <span className="block">Our responsibility.</span>
-            </motion.h1>
-          </motion.div>
-          <div className="mt-10 grid items-end gap-10 lg:grid-cols-12">
-          <motion.div
-            className="lg:col-span-5"
-            initial={reduce ? false : { opacity: 0, y: 18 }}
+            Meensou India · Sustainability
+          </motion.p>
+          <h1 className="mt-5 font-display text-[clamp(3rem,6.6vw,5.8rem)] leading-[0.9] font-semibold tracking-[-0.05em]">
+            {lines.map((line, index) => (
+              <span key={line} className="block overflow-hidden">
+                <motion.span
+                  className="block"
+                  initial={reduce ? false : { y: "110%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.85, delay: 0.12 + index * 0.1, ease }}
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.5, ease }}
+            className="mt-6 max-w-xl text-lg text-gold"
           >
-            <p className="max-w-md text-lg leading-8 text-charcoal/75">
-              {site.tagline} Mangrove restoration on the Sundarbans coast, and cleaner kitchens across rural Odisha. The figures here are the ones Meensou has published.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <motion.a
-                href="#impact"
-                whileHover={reduce ? undefined : { y: -2 }}
-                whileTap={reduce ? undefined : { scale: 0.98 }}
-                className="rounded-full bg-forest px-5 py-3 text-[0.72rem] font-semibold tracking-[0.16em] text-ivory uppercase"
-              >
-                See the record
-              </motion.a>
-              <motion.a
-                href="#projects"
-                whileHover={reduce ? undefined : { y: -2 }}
-                whileTap={reduce ? undefined : { scale: 0.98 }}
-                className="rounded-full border border-forest/20 bg-white/70 px-5 py-3 text-[0.72rem] font-semibold tracking-[0.16em] text-forest uppercase"
-              >
-                Projects
-              </motion.a>
-            </div>
-          </motion.div>
-
+            {site.tagline}
+          </motion.p>
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.58, ease }}
+            className="mt-3 max-w-xl text-base leading-7 text-ivory/75"
+          >
+            Mangrove restoration on the Sundarbans coast, and cleaner kitchens across rural Odisha. The figures here are the ones Meensou has published.
+          </motion.p>
           <motion.div
-            className="relative lg:col-span-7"
-            initial={reduce ? false : { opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease, delay: 0.15 }}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.72 }}
+            className="mt-6 grid gap-4 border-t border-white/20 pt-4 sm:grid-cols-3"
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-forest sm:aspect-[5/4] lg:aspect-[4/5]">
-              <ParallaxImage
-                src="/media/field-community.jpg"
-                alt="Young mangrove saplings in tidal channels, with forest beyond, in the Indian Sundarbans"
-                priority
-                sizes="(min-width: 1024px) 46vw, 100vw"
-              />
-            </div>
-            <motion.aside
-              initial={reduce ? false : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.45, ease }}
-              className="absolute -bottom-6 left-4 max-w-xs rounded-3xl border border-white/70 bg-white/90 p-5 shadow-[0_20px_50px_rgba(18,61,47,0.16)] backdrop-blur md:left-8"
-            >
-              <p className="eyebrow text-gold">Reported</p>
-              <p className="mt-2 font-serif text-4xl text-forest">1.2M+</p>
-              <p className="mt-1 text-sm leading-6 text-charcoal/70">Mangrove saplings planted. Three million remains the stated ambition.</p>
-            </motion.aside>
+            {[
+              ["1.2M+", "Saplings planted"],
+              ["34,818", "Cookstoves distributed"],
+              [site.founded, "Founded"],
+            ].map(([value, label]) => (
+              <p key={label}>
+                <span className="block font-display text-3xl font-semibold tracking-[-0.04em]">{value}</span>
+                <span className="mt-1 block text-[0.68rem] tracking-[0.16em] text-ivory/65 uppercase">{label}</span>
+              </p>
+            ))}
           </motion.div>
-          </div>
         </div>
       </section>
 
-      <section id="overview" className="py-20 md:py-28">
-        <div className="shell grid gap-12 lg:grid-cols-12 lg:items-center">
-          <Rise className="lg:col-span-5">
-            <p className="eyebrow text-forest/55">Commitment</p>
-            <h2 className="mt-4 font-serif text-[clamp(2.4rem,4.6vw,4.4rem)] leading-[0.96] text-forest">
-              A climate result and a household result, designed as one piece of work.
+      <section id="overview" className="border-b border-charcoal/15">
+        <div className="shell grid lg:grid-cols-12">
+          <div className="border-charcoal/15 py-16 lg:col-span-4 lg:border-r lg:py-24 lg:pr-10">
+            <p className="text-[0.72rem] font-semibold tracking-[0.22em] text-forest/60 uppercase">Commitment</p>
+            <h2 className="mt-4 font-display text-4xl leading-[1.05] font-semibold tracking-[-0.04em] text-forest">
+              Climate and household, built as one project.
             </h2>
-          </Rise>
-          <Rise delay={0.08} className="lg:col-span-6 lg:col-start-7">
-            <div className="space-y-5 text-lg leading-8 text-charcoal/78">
-              <p>
+          </div>
+          <div className="grid lg:col-span-8 lg:grid-cols-2">
+            <div className="border-charcoal/15 py-14 lg:border-r lg:px-10 lg:py-24">
+              <p className="text-[0.68rem] font-semibold tracking-[0.18em] text-gold uppercase">01</p>
+              <p className="mt-4 text-[1.05rem] leading-8">
                 Meensou India Private Limited works in the Sundarbans and in rural Odisha. Carbon work runs through mangrove restoration, and through the replacement of smoky wood fires with the Prathamesh-1 improved cookstove.
               </p>
-              <p>
+            </div>
+            <div className="border-t border-charcoal/15 py-14 lg:border-t-0 lg:px-10 lg:py-24">
+              <p className="text-[0.68rem] font-semibold tracking-[0.18em] text-gold uppercase">02</p>
+              <p className="mt-4 text-[1.05rem] leading-8">
                 No issued credit total is published, so none is shown. Training, nurseries and follow-up are how the work is meant to last.
               </p>
             </div>
-            <a href="#impact" className="mt-8 inline-flex items-center gap-2 text-[0.72rem] font-semibold tracking-[0.16em] text-forest uppercase">
-              Explore the impact
-              <ArrowUpRight className="size-4" aria-hidden />
-            </a>
-          </Rise>
+          </div>
         </div>
       </section>
 
-      <section id="impact" className="pb-20 md:pb-28">
-        <div className="shell">
-          <Rise>
-            <p className="eyebrow text-forest/55">Impact</p>
-            <h2 className="mt-4 max-w-3xl font-serif text-[clamp(2.4rem,4.6vw,4.4rem)] leading-[0.96] text-forest">
-              Published figures, labeled as they stand.
-            </h2>
-          </Rise>
-          <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {metrics.map((metric, index) => (
-              <Rise key={metric.label} delay={index * 0.05}>
-                <motion.article
-                  whileHover={reduce ? undefined : { y: -6 }}
-                  transition={{ duration: 0.25 }}
-                  className="flex h-full flex-col rounded-[1.6rem] border border-charcoal/10 bg-white p-6 shadow-[0_10px_30px_rgba(18,61,47,0.05)]"
-                >
-                  <p className="text-sm text-charcoal/60">{metric.label}</p>
-                  <p className="mt-4 font-serif text-5xl text-forest">
-                    <CountUp end={metric.end} suffix={metric.suffix} decimals={metric.decimals} label={metric.label} />
-                  </p>
-                  <p className="mt-4 text-sm leading-6 text-charcoal/60">{metric.note}</p>
-                </motion.article>
-              </Rise>
-            ))}
+      <section id="impact" className="bg-forest text-ivory">
+        <div className="shell py-16 md:py-20">
+          <p className="text-[0.72rem] font-semibold tracking-[0.22em] text-gold uppercase">Published figures</p>
+          <h2 className="mt-3 max-w-xl font-display text-4xl leading-[1.02] font-semibold tracking-[-0.04em] md:text-5xl">
+            Labeled as they stand.
+          </h2>
+          <div className="mt-12 grid gap-px bg-white/20 md:grid-cols-2 xl:grid-cols-4">
+          {metrics.map((metric, index) => (
+            <motion.article
+              key={metric.label}
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease }}
+              className="bg-forest px-1 py-8 md:px-6"
+            >
+              <p className="font-display text-[clamp(2.4rem,3.2vw,3.4rem)] font-semibold tracking-[-0.045em] tabular-nums">
+                <CountUp end={metric.end} suffix={metric.suffix} decimals={metric.decimals} label={metric.label} />
+              </p>
+              <p className="mt-4 text-sm font-medium text-ivory">{metric.label}</p>
+              <p className="mt-2 text-sm leading-6 text-ivory/60">{metric.note}</p>
+            </motion.article>
+          ))}
           </div>
-          <Rise className="mt-4">
-            <article className="rounded-[1.6rem] border border-dashed border-forest/25 bg-white/50 p-6 md:flex md:items-end md:justify-between">
-              <div>
-                <p className="eyebrow text-forest/50">Not published</p>
-                <p className="mt-3 font-serif text-4xl text-forest/40">—</p>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-charcoal/65">
-                  Verified emission reductions. No issued tonne total is published. This space stays empty until one is.
-                </p>
+        </div>
+        <div className="shell grid gap-6 border-t border-white/15 py-8 md:grid-cols-[9rem_1fr] md:items-center">
+          <p>
+            <span className="block font-display text-5xl text-ivory/35">—</span>
+            <span className="mt-2 block text-[0.72rem] tracking-[0.16em] text-gold uppercase">Not published</span>
+          </p>
+          <p className="max-w-xl text-sm leading-7 text-ivory/70">
+            Verified emission reductions. No issued tonne total is published. This space stays empty until one is.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-[#efece3]">
+        <ol className="shell grid gap-x-12 py-8 md:grid-cols-2">
+          {reportingNotes.map((note, index) => (
+            <li key={note} className="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-charcoal/12 py-5">
+              <span className="font-display text-sm text-gold">0{index + 1}</span>
+              <p className="text-sm leading-7 text-charcoal/70">{note}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section id="pillars">
+        <div className="shell flex items-end justify-between gap-6 border-b border-charcoal/15 py-12">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.04em] text-forest md:text-5xl">Three parts of the same work.</h2>
+          <p className="hidden max-w-xs text-sm leading-6 text-charcoal/60 md:block">Environmental, social, and the record that holds them together.</p>
+        </div>
+        {pillars.map((pillar, index) => (
+          <article id={pillar.id} key={pillar.id} className="grid min-h-[460px] border-b border-charcoal/15 lg:grid-cols-2">
+            <div className={`relative min-h-[300px] overflow-hidden ${index % 2 === 1 ? "lg:order-2" : ""}`}>
+              <ParallaxImage src={pillar.image} alt={pillar.alt} sizes="(min-width: 1024px) 50vw, 100vw" />
+            </div>
+            <div className="flex flex-col justify-center bg-[#efece3] px-6 py-12 md:px-14">
+              <p className="font-display text-sm tracking-[0.22em] text-gold">{pillar.index}</p>
+              <div className="mt-6">
+                <h3 className="font-display text-[clamp(2.6rem,4vw,3.6rem)] leading-none font-semibold tracking-[-0.045em] text-forest">{pillar.title}</h3>
+                <p className="mt-5 max-w-md text-[1.02rem] leading-7 text-charcoal/75">{pillar.text}</p>
+                <a href={pillar.href} className="mt-8 inline-flex items-center gap-2 border-b border-forest pb-1 text-[0.72rem] font-semibold tracking-[0.16em] text-forest uppercase">
+                  Open <ArrowUpRight className="size-4" aria-hidden />
+                </a>
               </div>
-            </article>
-          </Rise>
-          <ol className="mt-10 max-w-3xl space-y-4">
-            {reportingNotes.map((note) => (
-              <li key={note} className="border-t border-charcoal/10 pt-4 text-sm leading-7 text-charcoal/65">
-                {note}
-              </li>
-            ))}
-          </ol>
-        </div>
+            </div>
+          </article>
+        ))}
       </section>
 
-      <section id="pillars" className="pb-20 md:pb-28">
-        <div className="shell">
-          <Rise className="max-w-2xl">
-            <p className="eyebrow text-forest/55">ESG</p>
-            <h2 className="mt-4 font-serif text-[clamp(2.4rem,4.6vw,4.4rem)] leading-[0.96] text-forest">
-              Three doors into the same work.
-            </h2>
-          </Rise>
-          <div className="mt-12 grid gap-4 lg:grid-cols-3">
-            {pillars.map((pillar, index) => (
-              <Rise key={pillar.id} delay={index * 0.06}>
-                <motion.article
-                  id={pillar.id}
-                  whileHover={reduce ? undefined : { y: -8 }}
-                  className="flex min-h-[340px] flex-col justify-between rounded-[1.8rem] bg-forest p-7 text-ivory"
-                >
-                  <div>
-                    <p className="font-serif text-3xl text-gold">{pillar.index}</p>
-                    <h3 className="mt-6 font-serif text-4xl leading-none">{pillar.title}</h3>
-                    <p className="mt-5 text-sm leading-7 text-ivory/75">{pillar.text}</p>
-                  </div>
-                  <a href={pillar.href} className="mt-8 inline-flex items-center gap-2 text-[0.72rem] tracking-[0.16em] uppercase text-gold">
-                    Open
-                    <ArrowUpRight className="size-4" aria-hidden />
-                  </a>
-                </motion.article>
-              </Rise>
-            ))}
-          </div>
+      <section id="projects" className="bg-white">
+        <div className="shell border-b border-charcoal/15 py-14">
+          <p className="text-[0.72rem] font-semibold tracking-[0.22em] text-forest/55 uppercase">Projects</p>
+          <h2 className="mt-3 font-display text-4xl font-semibold tracking-[-0.04em] text-forest md:text-6xl">Three programmes. One public record.</h2>
         </div>
-      </section>
-
-      <section id="projects" className="pb-8">
-        <div className="shell">
-          <Rise>
-            <p className="eyebrow text-forest/55">Projects</p>
-            <h2 className="mt-4 max-w-3xl font-serif text-[clamp(2.4rem,4.6vw,4.4rem)] leading-[0.96] text-forest">
-              The three programmes on the public record.
-            </h2>
-          </Rise>
-          <div className="mt-14 space-y-20">
-            {flagshipProjects.map((project, index) => (
-              <article key={project.slug} className="border-t border-charcoal/10 pt-10">
-                <div className="grid items-stretch gap-8 lg:grid-cols-12">
-                  <Rise className={`lg:col-span-5 ${index % 2 === 1 ? "lg:order-2" : ""}`}>
-                    <div className="relative min-h-[420px] overflow-hidden rounded-[1.8rem] bg-forest">
-                      <ParallaxImage src={project.image} alt={project.imageAlt} sizes="(min-width: 1024px) 40vw, 100vw" />
-                    </div>
-                  </Rise>
-                  <div className="lg:col-span-7">
-                    <p className="eyebrow text-forest/50">{project.location}</p>
-                    <h3 className="mt-3 font-serif text-5xl text-forest">{project.name}</h3>
-                    <p className="mt-3 text-sm tracking-[0.14em] uppercase text-charcoal/55">{project.focus}</p>
-                    <p className="mt-2 text-sm text-charcoal/50">{project.since}</p>
-                    <p className="mt-5 text-base leading-8 text-charcoal/80">{project.description}</p>
-                    <p className="mt-4 text-sm text-forest">{project.status}</p>
-                    <ul className="mt-5 flex flex-wrap gap-3">
-                      {project.links.map((link) => (
-                        <li key={link.href}>
-                          <a href={link.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-forest/15 px-4 py-2 text-[0.72rem] tracking-[0.14em] text-forest uppercase">
-                            {link.label}
-                            <ArrowUpRight className="size-3.5" aria-hidden />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                <dl className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {project.metrics.map((metric) => (
-                    <div key={metric.label} className="rounded-3xl bg-white p-5">
-                      <Status status={metric.status} />
-                      <dt className="mt-3 font-serif text-3xl text-forest">{metric.value}</dt>
-                      <dd className="mt-1 text-sm text-charcoal/75">{metric.label}</dd>
-                      <dd className="mt-2 text-sm leading-6 text-charcoal/55">{metric.note}</dd>
-                    </div>
+        {flagshipProjects.map((project, index) => (
+          <article key={project.slug} className="border-b border-charcoal/15">
+            <div className="grid lg:grid-cols-12">
+              <div className={`relative min-h-[380px] overflow-hidden lg:col-span-5 ${index % 2 === 1 ? "lg:order-2" : ""}`}>
+                <ParallaxImage src={project.image} alt={project.imageAlt} sizes="(min-width: 1024px) 42vw, 100vw" />
+              </div>
+              <div className="flex flex-col justify-center px-6 py-14 md:px-12 lg:col-span-7 lg:px-16">
+                <p className="text-[0.72rem] font-semibold tracking-[0.18em] text-gold uppercase">
+                  <span className="mr-3 text-charcoal/35">0{index + 1}</span>
+                  {project.location}
+                </p>
+                <h3 className="mt-3 font-display text-[clamp(2.4rem,3.5vw,3.5rem)] font-semibold tracking-[-0.045em] text-forest">{project.name}</h3>
+                <p className="mt-3 text-sm tracking-[0.12em] uppercase text-charcoal/50">{project.focus}</p>
+                <p className="mt-1 text-sm text-charcoal/45">{project.since}</p>
+                <p className="mt-5 max-w-2xl text-base leading-8 text-charcoal/80">{project.description}</p>
+                <p className="mt-4 text-sm font-medium text-forest">{project.status}</p>
+                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+                  {project.links.map((link) => (
+                    <li key={link.href}>
+                      <a href={link.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 border-b border-charcoal/30 pb-1 text-[0.72rem] tracking-[0.14em] text-forest uppercase">
+                        {link.label}
+                        <ArrowUpRight className="size-3.5" aria-hidden />
+                      </a>
+                    </li>
                   ))}
-                </dl>
-                <div className="mt-10 grid gap-8 lg:grid-cols-2">
-                  <div>
-                    <h4 className="font-serif text-2xl text-forest">How it is carried out</h4>
-                    <ol className="mt-5 space-y-5">
-                      {project.approach.map((step, stepIndex) => (
-                        <li key={step.title} className="grid grid-cols-[auto_1fr] gap-4">
-                          <span className="font-serif text-gold">0{stepIndex + 1}</span>
-                          <div>
-                            <p className="text-forest">{step.title}</p>
-                            <p className="mt-1 text-sm leading-6 text-charcoal/70">{step.text}</p>
-                          </div>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                  <div>
-                    <h4 className="font-serif text-2xl text-forest">Places named in the record</h4>
-                    <ul className="mt-5 flex flex-wrap gap-2">
-                      {project.places.map((place) => (
-                        <li key={place} className="rounded-full bg-white px-3 py-2 text-sm text-forest">
-                          {place}
-                        </li>
+                </ul>
+              </div>
+            </div>
+            <dl className="grid border-t border-charcoal/10 sm:grid-cols-2 lg:grid-cols-3">
+              {project.metrics.map((metric) => (
+                <div key={metric.label} className="border-b border-charcoal/10 px-6 py-6 md:px-8">
+                  <Status status={metric.status} />
+                  <dt className="mt-2 font-display text-3xl font-semibold tracking-[-0.04em] text-forest">{metric.value}</dt>
+                  <dd className="mt-1 text-sm text-charcoal/75">{metric.label}</dd>
+                  <dd className="mt-2 text-sm leading-6 text-charcoal/55">{metric.note}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="grid gap-10 px-6 py-10 md:px-12 lg:grid-cols-2">
+              <div>
+                <h4 className="font-display text-2xl font-semibold text-forest">How it is carried out</h4>
+                <ol className="mt-5">
+                  {project.approach.map((step, stepIndex) => (
+                    <li key={step.title} className="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-charcoal/10 py-4">
+                      <span className="text-sm text-gold">0{stepIndex + 1}</span>
+                      <div>
+                        <p className="font-medium text-forest">{step.title}</p>
+                        <p className="mt-1 text-sm leading-6 text-charcoal/70">{step.text}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div>
+                <h4 className="font-display text-2xl font-semibold text-forest">Places named in the record</h4>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {project.places.map((place) => (
+                    <li key={place} className="border border-charcoal/15 px-3 py-1.5 text-sm">
+                      {place}
+                    </li>
+                  ))}
+                </ul>
+                {project.slug === "sundari" ? (
+                  <div className="mt-8">
+                    <h4 className="font-display text-2xl font-semibold text-forest">Nurseries named on the project page</h4>
+                    <p className="mt-2 text-sm leading-6 text-charcoal/60">Ten locations are named within a network reported as 11 nurseries.</p>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {sundariNurseries.map((nursery) => (
+                        <li key={nursery} className="border border-charcoal/15 px-3 py-1.5 text-sm">{nursery}</li>
                       ))}
                     </ul>
-                    {project.slug === "sundari" ? (
-                      <div className="mt-8">
-                        <h4 className="font-serif text-2xl text-forest">Nurseries named on the project page</h4>
-                        <p className="mt-2 text-sm leading-6 text-charcoal/60">Ten locations are named within a network reported as 11 nurseries.</p>
-                        <ul className="mt-3 flex flex-wrap gap-2">
-                          {sundariNurseries.map((nursery) => (
-                            <li key={nursery} className="rounded-full bg-white px-3 py-2 text-sm">{nursery}</li>
-                          ))}
-                        </ul>
-                        <h4 className="mt-8 font-serif text-2xl text-forest">Field offices</h4>
-                        <ul className="mt-3 flex flex-wrap gap-2">
-                          {sundariFieldOffices.map((office) => (
-                            <li key={office} className="rounded-full bg-white px-3 py-2 text-sm">{office}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
+                    <h4 className="mt-8 font-display text-2xl font-semibold text-forest">Field offices</h4>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {sundariFieldOffices.map((office) => (
+                        <li key={office} className="border border-charcoal/15 px-3 py-1.5 text-sm">{office}</li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
+                ) : null}
+              </div>
+            </div>
+          </article>
+        ))}
       </section>
 
       <ImpactMap />
       <Technology />
 
-      <section id="communities" className="py-20 md:py-28">
-        <div className="shell">
-          <Rise className="max-w-2xl">
-            <p className="eyebrow text-forest/55">Communities</p>
-            <h2 className="mt-4 font-serif text-[clamp(2.4rem,4.6vw,4.4rem)] leading-[0.96] text-forest">
-              Field records, without invented quotations.
+      <section id="communities" className="bg-[#efece3] py-16 md:py-20">
+        <div className="shell flex items-end justify-between gap-6">
+          <div>
+            <p className="text-[0.72rem] font-semibold tracking-[0.22em] text-forest/55 uppercase">Communities</p>
+            <h2 className="mt-3 max-w-xl font-display text-4xl font-semibold tracking-[-0.04em] text-forest md:text-5xl">
+              Field records. No invented quotations.
             </h2>
-            <p className="mt-5 text-lg leading-8 text-charcoal/75">
-              These are field records Meensou has published. Quotations are not written for people who did not give them.
-            </p>
-          </Rise>
-          <div className="mt-12 grid gap-4 md:grid-cols-12">
-            {portraits.map((story, index) => (
-              <Rise
-                key={story.id}
-                className={index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-4"}
-              >
-                <figure className="overflow-hidden rounded-[1.6rem] bg-white">
-                  <div className={`relative ${index === 0 ? "min-h-[460px]" : "min-h-[280px]"}`}>
-                    <ParallaxImage src={story.image!} alt={story.alt ?? ""} sizes="(min-width: 768px) 40vw, 100vw" />
-                  </div>
-                  <figcaption className="p-5">
-                    <p className="eyebrow text-gold">{story.place} · {story.year}</p>
-                    <p className="mt-2 font-serif text-2xl text-forest">{story.title}</p>
-                    <p className="mt-2 text-sm leading-6 text-charcoal/70">{story.text}</p>
-                  </figcaption>
-                </figure>
-              </Rise>
+          </div>
+          <p className="hidden max-w-xs text-sm leading-6 text-charcoal/60 md:block">
+            These are field records Meensou has published. Quotations are not written for people who did not give them.
+          </p>
+        </div>
+        <div className="shell mt-10">
+        <div className="flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+          {portraits.map((story) => (
+            <figure key={story.id} className="w-[min(82vw,380px)] shrink-0 snap-start border border-charcoal/10 bg-white text-charcoal">
+              <div className="relative h-72 overflow-hidden">
+                <ParallaxImage src={story.image!} alt={story.alt ?? ""} sizes="(min-width: 1024px) 34vw, 86vw" />
+              </div>
+              <figcaption className="p-5">
+                <p className="text-[0.68rem] tracking-[0.16em] text-gold uppercase">{story.place} · {story.year}</p>
+                <p className="mt-2 font-display text-2xl font-semibold tracking-[-0.03em] text-forest">{story.title}</p>
+                <p className="mt-2 text-sm leading-6 text-charcoal/70">{story.text}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        </div>
+        {writtenStories.length > 0 ? (
+          <div className="shell mt-12 max-w-3xl">
+            {writtenStories.map((story) => (
+              <article key={story.id} className="border-t border-charcoal/15 py-6">
+                <p className="text-[0.68rem] tracking-[0.16em] text-forest/50 uppercase">{story.place} · {story.year}</p>
+                <h3 className="mt-2 font-display text-3xl font-semibold text-forest">{story.title}</h3>
+                <p className="mt-3 leading-7 text-charcoal/75">{story.text}</p>
+                <p className="mt-2 text-xs tracking-[0.12em] uppercase text-charcoal/45">{story.source}</p>
+              </article>
             ))}
           </div>
-          {writtenStories.length > 0 ? (
-            <div className="mt-12 max-w-3xl">
-              {writtenStories.map((story) => (
-                <article key={story.id} className="border-t border-charcoal/10 py-6">
-                  <p className="eyebrow text-forest/50">{story.place} · {story.year}</p>
-                  <h3 className="mt-2 font-serif text-3xl text-forest">{story.title}</h3>
-                  <p className="mt-3 leading-7 text-charcoal/75">{story.text}</p>
-                  <p className="mt-2 text-xs tracking-[0.12em] uppercase text-charcoal/45">{story.source}</p>
-                </article>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        ) : null}
       </section>
 
-      <section id="reports" className="pb-20 md:pb-28">
-        <div className="shell grid gap-12 lg:grid-cols-12">
-          <Rise className="lg:col-span-5">
-            <p className="eyebrow text-forest/55">Goals and records</p>
-            <h2 className="mt-4 font-serif text-[clamp(2.3rem,4vw,3.8rem)] leading-[0.96] text-forest">
-              Aligned with global goals. Not certified by them.
+      <section id="reports" className="bg-white">
+        <div className="shell grid gap-10 py-16 lg:grid-cols-12 md:py-20">
+          <div className="lg:col-span-4">
+            <p className="text-[0.72rem] font-semibold tracking-[0.22em] text-forest/55 uppercase">Goals</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold tracking-[-0.04em] text-forest">
+              Contribution only. No certification claimed.
             </h2>
-            <p className="mt-5 text-lg leading-8 text-charcoal/75">
+            <p className="mt-5 text-sm leading-7 text-charcoal/70">
               The goals below are the ones Meensou’s published activities speak to. Listing them is not a United Nations endorsement, a certification, or a formal affiliation.
             </p>
-          </Rise>
-          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+          </div>
+          <div className="grid gap-px bg-charcoal/10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3">
             {sdgs.map((goal) => (
-              <article key={goal.number} className="rounded-3xl bg-white p-4">
-                <div className="flex items-center gap-3">
-                  <span
-                    className="flex size-10 items-center justify-center rounded-2xl text-sm font-semibold text-white"
-                    style={{ backgroundColor: goal.color }}
-                    aria-hidden
-                  >
-                    {goal.number}
-                  </span>
-                  <h3 className="text-base text-forest">
-                    <span className="sr-only">SDG {goal.number}: </span>
-                    {goal.title}
-                  </h3>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-charcoal/70">{goal.text}</p>
-                <p className="mt-2 text-xs tracking-[0.08em] text-charcoal/45">{goal.projects}</p>
+              <article key={goal.number} className="bg-white p-5">
+                <span className="inline-flex h-8 min-w-8 items-center justify-center px-2 text-sm font-semibold text-white" style={{ backgroundColor: goal.color }}>
+                  <span className="sr-only">SDG </span>
+                  {goal.number}
+                </span>
+                <h3 className="mt-4 font-display text-xl font-semibold text-forest">{goal.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-charcoal/70">{goal.text}</p>
+                <p className="mt-3 text-xs tracking-[0.08em] text-charcoal/45 uppercase">{goal.projects}</p>
               </article>
             ))}
           </div>
         </div>
-        <div className="shell mt-16">
-          <h3 className="font-serif text-4xl text-forest">Public records</h3>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-charcoal/65">
-            A consolidated sustainability report PDF has not been published. The links below are the public project records that exist today.
-          </p>
-          <ul className="mt-6 grid gap-3 lg:grid-cols-3">
-            {records.map((record) => (
-              <li key={record.title}>
-                <a
-                  href={record.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-full flex-col justify-between rounded-[1.5rem] border border-charcoal/10 bg-white p-5 transition hover:-translate-y-1"
-                >
-                  <span>
-                    <span className="block font-serif text-2xl text-forest">{record.title}</span>
-                    <span className="mt-2 block text-sm leading-6 text-charcoal/65">{record.detail}</span>
-                  </span>
-                  <span className="mt-6 inline-flex items-center gap-1 text-[0.72rem] tracking-[0.14em] text-forest uppercase">
-                    Open <ArrowUpRight className="size-3.5" aria-hidden />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="pb-20">
-        <div className="shell">
-          <div className="relative overflow-hidden rounded-[2rem] bg-forest text-ivory">
-            <div className="grid lg:grid-cols-2">
-              <div className="relative min-h-[320px]">
-                <ParallaxImage
-                  src="/media/south24.jpeg"
-                  alt="Mangrove forest along a quiet Sundarbans channel"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                />
-              </div>
-              <div className="flex flex-col justify-end p-8 md:p-12">
-                <p className="eyebrow text-gold">Connect</p>
-                <h2 className="mt-4 font-serif text-[clamp(2.4rem,4.5vw,4.4rem)] leading-[0.96]">
-                  A sustainable future starts with the work already underway.
-                </h2>
-                <p className="mt-5 max-w-md text-lg leading-8 text-ivory/75">
-                  Partnerships, project questions and requests for the published figures come to the same address.
-                </p>
-                <motion.a
-                  href="#contact"
-                  whileHover={reduce ? undefined : { y: -2 }}
-                  className="mt-8 inline-flex w-fit rounded-full bg-ivory px-6 py-3 text-[0.72rem] font-semibold tracking-[0.16em] text-forest uppercase"
-                >
-                  Connect With Meensou
-                </motion.a>
-              </div>
-            </div>
+        <div className="border-t border-charcoal/10">
+          <div className="shell py-12">
+            <h3 className="font-display text-3xl font-semibold text-forest">Public records</h3>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-charcoal/65">
+              A consolidated sustainability report PDF has not been published. The links below are the public project records that exist today.
+            </p>
+            <ul className="mt-8 divide-y divide-charcoal/10 border-y border-charcoal/10">
+              {records.map((record) => (
+                <li key={record.title}>
+                  <a href={record.href} target="_blank" rel="noreferrer" className="grid gap-2 py-5 md:grid-cols-[1.2fr_1.4fr_auto] md:items-center">
+                    <span className="font-display text-2xl font-semibold text-forest">{record.title}</span>
+                    <span className="text-sm leading-6 text-charcoal/65">{record.detail}</span>
+                    <span className="inline-flex items-center gap-1 text-[0.72rem] tracking-[0.14em] text-forest uppercase">
+                      Open <ArrowUpRight className="size-3.5" aria-hidden />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="pb-24">
-        <div className="shell">
-          <p className="eyebrow text-forest/55">Contact</p>
-          <h2 className="mt-4 font-serif text-5xl text-forest">Write to the team.</h2>
-          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-lg">
-            <a className="text-forest underline decoration-gold underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a>
+      <section className="grid bg-charcoal text-ivory lg:grid-cols-2">
+        <div className="relative min-h-[320px] overflow-hidden">
+          <ParallaxImage src="/media/south24.jpeg" alt="Mangrove forest along a quiet Sundarbans channel" sizes="(min-width: 1024px) 50vw, 100vw" />
+        </div>
+        <div className="flex flex-col justify-end px-6 py-14 md:px-12">
+          <h2 className="font-display text-[clamp(2.6rem,4.5vw,4.5rem)] leading-[0.95] font-semibold tracking-[-0.045em]">
+            The work is already in the field.
+          </h2>
+          <p className="mt-5 max-w-md text-base leading-7 text-ivory/70">
+            Partnerships, project questions and requests for the published figures come to the same address.
+          </p>
+          <a href="#contact" className="mt-8 w-fit border-b border-gold pb-1 text-[0.72rem] font-semibold tracking-[0.18em] uppercase">
+            Connect With Meensou
+          </a>
+        </div>
+      </section>
+
+      <section id="contact" className="bg-[#efece3]">
+        <div className="shell py-16 md:py-20">
+          <p className="text-[0.72rem] font-semibold tracking-[0.22em] text-forest/55 uppercase">Contact</p>
+          <h2 className="mt-3 font-display text-5xl font-semibold tracking-[-0.045em] text-forest">Write to the team.</h2>
+          <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-lg">
+            <a className="border-b border-gold" href={`mailto:${site.email}`}>{site.email}</a>
             <a href={site.phoneHref}>{site.phone}</a>
           </div>
-          <ul className="mt-10 grid gap-4 md:grid-cols-3">
+          <ul className="mt-12 grid border-t border-charcoal/15 md:grid-cols-3">
             {offices.map((office) => (
-              <li key={office.region} className="rounded-[1.5rem] bg-white p-6">
-                <p className="font-serif text-3xl text-forest">{office.region}</p>
+              <li key={office.region} className="border-b border-charcoal/15 py-8 md:border-r md:pr-8 md:pl-0 md:first:pl-0 md:last:border-r-0 md:[&:not(:first-child)]:pl-8">
+                <p className="font-display text-3xl font-semibold text-forest">{office.region}</p>
                 <p className="mt-1 text-sm text-charcoal/50">{office.role}</p>
                 <p className="mt-4 text-sm leading-6">{office.lines.join(", ")}</p>
               </li>
